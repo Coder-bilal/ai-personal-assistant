@@ -1,0 +1,667 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
+
+:root {
+  --background: #030712;
+  --foreground: #f3f4f6;
+  --accent-primary: #8b5cf6;
+  --accent-secondary: #06b6d4;
+  --accent-tertiary: #10b981;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+}
+
+/* Custom Base Styles */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0f19;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #374151;
+}
+
+/* Custom Animations */
+@keyframes pulse-slow {
+  0%, 100% {
+    transform: scale(1) translate(0px, 0px);
+    opacity: 0.5;
+  }
+  33% {
+    transform: scale(1.1) translate(30px, -50px);
+    opacity: 0.8;
+  }
+  66% {
+    transform: scale(0.9) translate(-20px, 20px);
+    opacity: 0.6;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+}
+
+@keyframes float-delayed {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-1deg);
+  }
+}
+
+@keyframes scan {
+  0% {
+    top: 0%;
+  }
+  50% {
+    top: 100%;
+  }
+  100% {
+    top: 0%;
+  }
+}
+
+@keyframes grid-glow {
+  0%, 100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes gradient-bg {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Animation Helper Classes */
+.animate-pulse-slow {
+  animation: pulse-slow 15s infinite ease-in-out;
+}
+
+.animate-pulse-slow-reverse {
+  animation: pulse-slow 20s infinite ease-in-out reverse;
+}
+
+.animate-float {
+  animation: float 6s infinite ease-in-out;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 8s infinite ease-in-out;
+}
+
+.animate-scan {
+  animation: scan 3s infinite linear;
+}
+
+.animate-grid-glow {
+  animation: grid-glow 8s infinite ease-in-out;
+}
+
+.animate-gradient-text {
+  background-size: 200% auto;
+  animation: gradient-bg 6s linear infinite;
+}
+
+/* Background Patterns */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.bg-dot-pattern {
+  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(17, 24, 39, 0.8);
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 10px 40px 0 rgba(139, 92, 246, 0.1);
+  transform: translateY(-2px);
+}
+
+.glow-card-violet:hover {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+.glow-card-cyan:hover {
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.2);
+  border-color: rgba(6, 182, 212, 0.4);
+}
+
+.glow-card-emerald:hover {
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+/* Custom Gradient Text */
+.text-gradient-purple-cyan {
+  background: linear-gradient(135deg, #a78bfa 0%, #a5b4fc 25%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-cyan-emerald {
+  background: linear-gradient(135deg, #06b6d4 0%, #22d3ee 50%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==================== LIGHT THEME OVERRIDES ==================== */
+.light {
+  --background: #f1f5f9; /* Slate-100: cool gray page background */
+  --panel-bg: #ffffff; /* White stats cards and sidebar */
+  --panel-border: rgba(226, 232, 240, 0.8); /* Slate-200 border */
+  --foreground: #0f172a; /* Slate-900 text */
+  --text-muted: #475569; /* Slate-600 muted text */
+  --text-title: #0f172a;
+  
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+/* Page background override */
+.light .bg-\[\#080b11\] {
+  background-color: var(--background) !important;
+}
+
+/* Sidebar and Top Bar: Pure White Background */
+.light aside,
+.light header,
+.light .bg-\[\#0d121f\] {
+  background-color: #ffffff !important;
+  border-color: var(--panel-border) !important;
+}
+
+/* Stats Cards: Pure White Background with subtle shadow */
+.light .grid-cols-1.md\:grid-cols-3 .bg-\[\#0d121f\] {
+  background-color: #ffffff !important;
+  border-color: rgba(226, 232, 240, 0.7) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Lower Grid Cards (Today's Brief, Connected Apps, Priority Items): Soft Gray Background */
+.light .grid-cols-1.lg\:grid-cols-3 .bg-\[\#0d121f\],
+.light .grid-cols-1.lg\:grid-cols-3 .bg-\[\#0d121f\]\/50 {
+  background-color: #f8fafc !important; /* Soft gray card background */
+  border-color: rgba(226, 232, 240, 0.8) !important;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Nested Items inside Lower Grid Cards: Pure White Background (The nesting contrast fix) */
+.light .grid-cols-1.lg\:grid-cols-3 .bg-slate-950\/30,
+.light .grid-cols-1.lg\:grid-cols-3 .bg-slate-950\/45,
+.light .grid-cols-1.lg\:grid-cols-3 .bg-slate-950\/50,
+.light .grid-cols-1.lg\:grid-cols-3 .bg-slate-950,
+.light .grid-cols-1.lg\:grid-cols-3 .bg-\[\#131824\],
+.light .grid-cols-1.lg\:grid-cols-3 .bg-\[\#131929\],
+.light .grid-cols-1.lg\:grid-cols-3 .bg-\[\#131926\] {
+  background-color: #ffffff !important; /* White inner items */
+  border-color: rgba(226, 232, 240, 0.8) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01) !important;
+}
+
+/* Welcome Banner: Beautiful Light Purple/Blue Gradient Box */
+.light main .relative.overflow-hidden.rounded-2xl.bg-\[\#0d121f\] {
+  background: linear-gradient(to right, rgba(168, 85, 247, 0.06) 0%, rgba(99, 102, 241, 0.05) 50%, rgba(59, 130, 246, 0.03) 100%) !important;
+  border-color: rgba(168, 85, 247, 0.1) !important;
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.04) !important;
+}
+
+/* Sidebar active item: Soft Blue Background and Blue Text */
+.light .bg-\[\#1e1b4b\]\/30 {
+  background-color: rgba(59, 130, 246, 0.08) !important;
+  color: #2563eb !important;
+  border-left-color: #3b82f6 !important;
+}
+
+.light .bg-\[\#1e1b4b\]\/50 {
+  background-color: rgba(59, 130, 246, 0.08) !important;
+  color: #2563eb !important;
+  border-left-color: #3b82f6 !important;
+}
+
+/* Sidebar inactive item text and hovers */
+.light aside nav button.text-slate-400 {
+  color: #475569 !important;
+}
+
+.light aside nav button.text-slate-400:hover {
+  color: #0f172a !important;
+  background-color: rgba(241, 245, 249, 0.8) !important;
+}
+
+.light .hover\:bg-\[\#1e293b\]\/20:hover {
+  background-color: rgba(241, 245, 249, 0.8) !important;
+  color: #0f172a !important;
+}
+
+/* Sidebar Pricing Settings button */
+.light .bg-\[\#090d16\]\/60 {
+  background-color: #ffffff !important;
+  border-color: var(--panel-border) !important;
+  color: #334155 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02) !important;
+}
+.light .bg-\[\#090d16\]\/60:hover {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Sidebar inactive icons: OVERRIDE DARK METADATA BADGES TO SOFT LIGHT PALETTE */
+.light .bg-blue-950\/35 {
+  background-color: rgba(59, 130, 246, 0.08) !important;
+  color: #2563eb !important;
+  border-color: rgba(59, 130, 246, 0.15) !important;
+}
+
+.light .bg-violet-950\/35 {
+  background-color: rgba(139, 92, 246, 0.08) !important;
+  color: #7c3aed !important;
+  border-color: rgba(139, 92, 246, 0.15) !important;
+}
+
+.light .bg-amber-950\/35 {
+  background-color: rgba(245, 158, 11, 0.08) !important;
+  color: #d97706 !important;
+  border-color: rgba(245, 158, 11, 0.15) !important;
+}
+
+.light .bg-teal-950\/35 {
+  background-color: rgba(20, 184, 166, 0.08) !important;
+  color: #0d9488 !important;
+  border-color: rgba(20, 184, 166, 0.15) !important;
+}
+
+.light .bg-rose-950\/35 {
+  background-color: rgba(244, 63, 94, 0.08) !important;
+  color: #e11d48 !important;
+  border-color: rgba(244, 63, 94, 0.15) !important;
+}
+
+.light .bg-slate-900\/55 {
+  background-color: rgba(100, 116, 139, 0.08) !important;
+  color: #475569 !important;
+  border-color: rgba(100, 116, 139, 0.15) !important;
+}
+
+.light .border-slate-800\/40 {
+  border-color: rgba(226, 232, 240, 0.8) !important;
+}
+
+/* Hover states for the sidebar badges */
+.light .hover\:bg-blue-950\/55:hover {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+  color: #1d4ed8 !important;
+}
+.light .hover\:bg-violet-950\/55:hover {
+  background-color: rgba(139, 92, 246, 0.15) !important;
+  color: #6d28d9 !important;
+}
+.light .hover\:bg-amber-950\/55:hover {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  color: #b45309 !important;
+}
+.light .hover\:bg-teal-950\/55:hover {
+  background-color: rgba(20, 184, 166, 0.15) !important;
+  color: #0f766e !important;
+}
+.light .hover\:bg-rose-950\/55:hover {
+  background-color: rgba(244, 63, 94, 0.15) !important;
+  color: #be123c !important;
+}
+.light .hover\:bg-slate-900:hover {
+  background-color: rgba(100, 116, 139, 0.15) !important;
+  color: #0f172a !important;
+}
+
+/* User profile avatar section */
+.light .from-slate-950 {
+  --tw-gradient-from: #8b5cf6 !important;
+}
+.light .to-slate-800 {
+  --tw-gradient-to: #6366f1 !important;
+}
+
+/* Stats Card Badges: IMPORTANT, SCHEDULE, FOLLOW-UPS */
+.light .bg-violet-950\/40 {
+  background-color: rgba(139, 92, 246, 0.08) !important;
+  color: #7c3aed !important;
+  border-color: rgba(139, 92, 246, 0.15) !important;
+}
+.light .bg-blue-950\/40 {
+  background-color: rgba(59, 130, 246, 0.08) !important;
+  color: #2563eb !important;
+  border-color: rgba(59, 130, 246, 0.15) !important;
+}
+.light .bg-emerald-950\/40 {
+  background-color: rgba(16, 185, 129, 0.08) !important;
+  color: #059669 !important;
+  border-color: rgba(16, 185, 129, 0.15) !important;
+}
+
+/* Chevron buttons inside stats cards */
+.light .border-\[\#1e293b\]\/60 {
+  border-color: rgba(226, 232, 240, 0.8) !important;
+  color: #64748b !important;
+}
+.light .border-\[\#1e293b\]\/60:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Today's Brief Check Circles */
+.light .border-slate-700\/60 {
+  border-color: rgba(226, 232, 240, 0.8) !important;
+}
+.light .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+/* Glass panel elements */
+.light .glass-panel {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(226, 232, 240, 0.9) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04) !important;
+}
+
+.light .glass-panel-hover:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(139, 92, 246, 0.25) !important;
+  box-shadow: 0 10px 40px 0 rgba(139, 92, 246, 0.06) !important;
+}
+
+/* Border overrides */
+.light .border-\[\#1e293b\]\/40,
+.light .border-\[\#1e293b\]\/30,
+.light .border-\[\#1e293b\]\/45,
+.light .border-\[\#1e293b\]\/20,
+.light .border-\[\#1e293b\]\/25,
+.light .border-white\/5,
+.light .border-white\/10 {
+  border-color: var(--panel-border) !important;
+}
+
+.light .border-\[\#334155\]\/40,
+.light .border-\[\#334155\]\/55 {
+  border-color: rgba(203, 213, 225, 0.8) !important;
+}
+
+/* Text overrides */
+.light .text-white,
+.light .text-gray-100 {
+  color: var(--text-title) !important;
+}
+
+.light .text-slate-400,
+.light .text-gray-400,
+.light .text-slate-300,
+.light .text-gray-300 {
+  color: var(--text-muted) !important;
+}
+
+.light .text-slate-500 {
+  color: #64748b !important;
+}
+
+/* Accent texts inside light mode */
+.light .text-violet-400 {
+  color: #6d28d9 !important;
+}
+.light .text-blue-400 {
+  color: #1d4ed8 !important;
+}
+.light .text-emerald-400 {
+  color: #047857 !important;
+}
+
+/* Button override for dark secondary buttons like "View all", "Manage" */
+.light .bg-slate-900,
+.light .bg-slate-950,
+.light button.bg-slate-900,
+.light button.bg-slate-950,
+.light button.border-\[\#1e293b\]\/40 {
+  background-color: #f1f5f9 !important;
+  border-color: rgba(226, 232, 240, 0.8) !important;
+  color: #334155 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+}
+
+.light .hover\:bg-slate-900:hover,
+.light button.hover\:bg-slate-900:hover,
+.light button.hover\:text-white:hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Select, input inputs */
+.light select,
+.light textarea,
+.light input[type="text"] {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+.light select:focus,
+.light textarea:focus,
+.light input[type="text"]:focus {
+  border-color: #8b5cf6 !important;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1) !important;
+}
+
+/* Chat bubble styling overrides */
+.light .bg-\[\#131929\] {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+  border-color: #e2e8f0 !important;
+}
+
+.light .bg-violet-950\/30 {
+  background-color: #f3e8ff !important;
+  color: #581c87 !important;
+  border-color: #e9d5ff !important;
+}
+
+/* Action button overrides */
+.light .hover\:bg-white\/5:hover {
+  background-color: rgba(15, 23, 42, 0.05) !important;
+}
+
+/* Sync Live badge override */
+.light .bg-emerald-500\/10 {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  color: #059669 !important;
+}
+
+/* Red badges issues override */
+.light .bg-red-950\/30 {
+  background-color: #fef2f2 !important;
+  border-color: #fca5a5 !important;
+  color: #991b1b !important;
+}
+
+.light .text-red-200 {
+  color: #991b1b !important;
+}
+
+.light .text-red-400 {
+  color: #dc2626 !important;
+}
+
+/* Pricing settings page overrides */
+.light .bg-\[\#0d121f\] {
+  background-color: #ffffff !important;
+}
+
+/* Pricing settings border */
+.light .border-violet-500\/35 {
+  border-color: #ddd6fe !important;
+}
+
+.light .ring-violet-555\/20,
+.light .ring-violet-500\/20 {
+  --tw-ring-color: rgba(139, 92, 246, 0.1) !important;
+}
+
+/* Dot/Grid patterns in light mode */
+.light .bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px) !important;
+}
+
+.light .bg-dot-pattern {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px) !important;
+}
+
+/* Scrollbar overrides for light mode */
+.light ::-webkit-scrollbar-track {
+  background: #f1f5f9 !important;
+}
+.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1 !important;
+}
+.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8 !important;
+}
+
+/* ==================== PREMIUM LIGHT MODE REFINEMENTS ==================== */
+
+/* 1. Harsh Dark Containers -> Soft Light Containers */
+.light .bg-gray-950,
+.light .bg-gray-900,
+.light .bg-slate-950 {
+  background-color: #f1f5f9 !important;
+  border-color: rgba(226, 232, 240, 0.8) !important;
+}
+
+/* 2. Header Sidebar Collapse & Mobile Menu Toggle Buttons */
+.light .bg-\[\#1e293b\]\/50 {
+  background-color: #f1f5f9 !important;
+  border-color: rgba(226, 232, 240, 0.8) !important;
+  color: #475569 !important;
+}
+.light .bg-\[\#1e293b\]\/50:hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* 3. AI Agent Chat Interface Refinements */
+.light .bg-violet-950\/45 {
+  background-color: #8b5cf6 !important;
+  color: #ffffff !important;
+  border-color: #7c3aed !important;
+}
+.light .bg-violet-950\/45 span.text-gray-500 {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+.light .bg-\[\#1e293b\] {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+  border-color: rgba(226, 232, 240, 0.8) !important;
+}
+
+/* 4. Connected Integrations and Status Badges */
+.light .bg-\[\#090d16\]\/85 {
+  background-color: #f1f5f9 !important;
+  border-color: rgba(226, 232, 240, 0.8) !important;
+  color: #475569 !important;
+}
+.light .bg-\[\#090d16\]\/80 {
+  background-color: #f1f5f9 !important;
+  border-color: rgba(226, 232, 240, 0.8) !important;
+}
+.light .bg-emerald-950\/20 {
+  background-color: rgba(16, 185, 129, 0.08) !important;
+  color: #059669 !important;
+  border-color: rgba(16, 185, 129, 0.2) !important;
+}
+.light .hover\:bg-emerald-950\/40:hover {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+}
+
+/* 5. Alerts Tab Callouts, Timelines & Dash Borders */
+.light .bg-red-950\/20 {
+  background-color: #fef2f2 !important;
+  color: #991b1b !important;
+  border-color: rgba(239, 68, 68, 0.15) !important;
+}
+.light .bg-\[\#090d16\]\/40 {
+  background-color: #ffffff !important;
+  border-color: rgba(226, 232, 240, 0.8) !important;
+}
+.light .border-dashed {
+  border-color: rgba(203, 213, 225, 0.8) !important;
+}
+.light .text-rose-400 {
+  color: #e11d48 !important;
+}
+
+/* 6. Pricing Tab & General Disabled Slate Buttons */
+.light button.bg-slate-950 {
+  background-color: #e2e8f0 !important;
+  color: #64748b !important;
+  border-color: rgba(203, 213, 225, 0.8) !important;
+}
+
+
+
